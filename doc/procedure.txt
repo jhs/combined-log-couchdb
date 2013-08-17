@@ -1,0 +1,11 @@
+My plugin procedure
+===================
+
+git submodule update --init --recursive
+make -C rebar
+./rebar/rebar create template=couch_plugin     \
+                     name=combined_log         \
+                     year=2013                 \
+                     author_name='Jason Smith' \
+                     author_email='jason.h.smith@gmail.com'
+./rebar/rebar compile
