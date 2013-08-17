@@ -14,8 +14,9 @@
 {template, "template/couch_plugin.erl", "src/{{name}}.erl"}.
 
 {template, "template/gitignore/empty", "doc/.gitignore"}.
-{template, "template/gitignore/empty", "priv/.gitignore"}.
 {template, "template/gitignore/empty", "include/.gitignore"}.
+
+{template, "template/default.d/plugin.ini", "priv/default.d/{{name}}.ini"}.
 
 {template, "template/gitignore/ebin", "ebin/.gitignore"}.
 {template, "template/gitignore/rel", "rel/.gitignore"}.
