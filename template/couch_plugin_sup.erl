@@ -10,7 +10,7 @@
 %%%    See the License for the specific language governing permissions and
 %%%    limitations under the License.
 
--module({{name}}_sup).
+-module('{{name}}_sup').
 
 -behaviour(supervisor).
 

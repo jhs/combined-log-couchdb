@@ -10,7 +10,7 @@
 %%%    See the License for the specific language governing permissions and
 %%%    limitations under the License.
 
--module({{name}}_app).
+-module('{{name}}_app').
 -author('{{author_name}} <{{author_email}}>').
 
 -behaviour(application).
