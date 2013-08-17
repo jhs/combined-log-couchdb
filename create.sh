@@ -21,5 +21,5 @@ fi
 
 set -x
 
-./rebar/rebar create \
+./rebar/rebar create -C template/rebar/null \
   template="couch_plugin" name="$plugin_name" year="$year" author_name="$author_name" author_email="$author_email" $force

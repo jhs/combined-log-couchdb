@@ -21,7 +21,7 @@
 {template, "template/gitignore/rel", "rel/.gitignore"}.
 
 {template, "template/README.md", "README.md"}.
-{template, "template/rebar.config", "rebar.config"}.
+{template, "template/rebar/config", "rebar.config"}.
 
 %
 % Derived from rebar/priv/templates/simplenode.template
