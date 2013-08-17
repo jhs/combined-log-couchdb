@@ -12,11 +12,13 @@
 
 %% CouchDB Plugin authors:
 %%
-%% You do not need to edit this file. Your code is in {{name}}.erl.
+%% Do not to edit this file. Your code is in {{name}}.erl.
 
 -module('{{name}}_srv').
 -behaviour(gen_server).
 -define(SERVER, ?MODULE).
+
+-import('{{name}}', [on/1]).
 
 %% ------------------------------------------------------------------
 %% API Function Exports
@@ -43,6 +45,7 @@ start_link() ->
 %% ------------------------------------------------------------------
 
 init(Args) ->
+    on(init),
     {ok, Args}.
 
 handle_call(_Request, _From, State) ->
