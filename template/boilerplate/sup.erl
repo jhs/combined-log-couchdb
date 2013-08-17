@@ -16,6 +16,7 @@
 
 -module('{{name}}_sup').
 
+-include("couch_plugin.hrl").
 -behaviour(supervisor).
 
 %% API

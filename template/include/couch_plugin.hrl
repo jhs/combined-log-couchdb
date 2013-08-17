@@ -1,7 +1,3 @@
-%%% Apache CouchDB Plugin: {{name}}
-%%%
-%%% Copyright {{year}} {{author_name}}
-%%%
 %%%    Licensed under the Apache License, Version 2.0 (the "License");
 %%%    you may not use this file except in compliance with the License.
 %%%    You may obtain a copy of the License at
@@ -14,12 +10,8 @@
 %%%    See the License for the specific language governing permissions and
 %%%    limitations under the License.
 
--module('{{name}}').
--author('{{author_name}} <{{author_email}}>').
+%% CouchDB Plugin authors:
+%%
+%% You do not need to edit this file. Your code is in {{name}}.erl.
 
--include("couch_plugin.hrl").
--export([on/1]).
-
-
-on(init) ->
-  couch_log:info("CouchDB plugin loaded: ~p", [?MODULE]).
+-define(PRIV_DIR, code:priv_dir('{{name}}')).

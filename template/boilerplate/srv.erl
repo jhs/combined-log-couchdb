@@ -18,6 +18,7 @@
 -behaviour(gen_server).
 -define(SERVER, ?MODULE).
 
+-include("couch_plugin.hrl").
 -import('{{name}}', [on/1]).
 
 %% ------------------------------------------------------------------
