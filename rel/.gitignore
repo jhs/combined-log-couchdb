@@ -1,1 +1,2 @@
-# This .gitignore helps commit empty directories into Git.
+files
+reltool.config
