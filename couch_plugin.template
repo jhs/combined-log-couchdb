@@ -11,6 +11,7 @@
 
 {template, "template/couch_plugin.erl", "src/{{name}}_srv.erl"}.
 
+{template, "template/couch_plugin.gitignore", "doc/.gitignore"}.
 {template, "template/couch_plugin.gitignore", "priv/.gitignore"}.
 {template, "template/couch_plugin.gitignore", "include/.gitignore"}.
 {template, "template/couch_plugin.README.md", "README.md"}.
