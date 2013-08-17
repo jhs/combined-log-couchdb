@@ -19,7 +19,15 @@ if [ "$1" = "-f" -o "$1" = "--force" -o "$1" = "force=1" ]; then
   force="force=1"
 fi
 
-set -x
+set -e
 
 ./rebar/rebar create -C template/rebar/null \
   template="couch_plugin" name="$plugin_name" year="$year" author_name="$author_name" author_email="$author_email" $force
+
+echo ""
+echo "## Success"
+echo ""
+echo "To compile your plugin: ./rebar/rebar compile"
+echo "To package your plugin: ./rebar/rebar generate"
+echo ""
+echo "Your plugin release will be in rel/$plugin_name"
