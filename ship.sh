@@ -28,6 +28,18 @@ mkdir -p "$dist"
 cp -r ebin "$dist"
 cp -r priv "$dist"
 
+if [ -d "deps" ]; then
+  for dep in deps/* ; do
+    dep=`basename "$dep"`
+    mkdir -p "$dist/deps/$dep"
+
+    cp -r "deps/$dep/ebin" "$dist/deps/$dep/ebin"
+    if [ -d "$deps/$dep/priv" ]; then
+      cp -r "deps/$dep/priv" "$dist/deps/$dep/priv"
+    fi
+  done
+fi
+
 zip -r "$dist.zip" "$dist"
 rm -rf "./$dist"
 
