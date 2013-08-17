@@ -21,4 +21,4 @@
 
 
 on(init) ->
-  ok.
+  couch_log:info("CouchDB plugin loaded: ~p", [?MODULE]).

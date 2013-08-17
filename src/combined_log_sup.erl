@@ -39,5 +39,6 @@ start_link() ->
 %% ===================================================================
 
 init([]) ->
-    {ok, { {one_for_one, 5, 10}, []} }.
+    Plugin = ?CHILD('combined_log_srv', worker),
+    {ok, { {one_for_one, 5, 10}, [Plugin]} }.
 
