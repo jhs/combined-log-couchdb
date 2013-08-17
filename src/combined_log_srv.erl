@@ -18,6 +18,7 @@
 -behaviour(gen_server).
 -define(SERVER, ?MODULE).
 
+-include("couch_plugin.hrl").
 -import('combined_log', [on/1]).
 
 %% ------------------------------------------------------------------
@@ -45,6 +46,9 @@ start_link() ->
 %% ------------------------------------------------------------------
 
 init(Args) ->
+    code:add_pathz(?PRIV_DIR ++ "/../deps/lager/ebin"),
+    code:add_pathz(?PRIV_DIR ++ "/../deps/goldrush/ebin"),
+    io:format("Paths added: ~p\n", [code:get_path()]),
     on(init),
     {ok, Args}.
 

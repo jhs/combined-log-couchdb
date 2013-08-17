@@ -17,8 +17,10 @@
 -module('combined_log').
 -author('Jason Smith <jason.h.smith@gmail.com>').
 
+-include("couch_plugin.hrl").
 -export([on/1]).
 
 
 on(init) ->
-  couch_log:info("CouchDB plugin loaded: ~p", [?MODULE]).
+  couch_log:info("CouchDB plugin loaded: ~p", [?MODULE]),
+  lager:info("Lager is running").
