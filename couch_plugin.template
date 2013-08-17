@@ -21,3 +21,24 @@
 
 {template, "template/README.md", "README.md"}.
 {template, "template/rebar.config", "rebar.config"}.
+
+%
+% Derived from rebar/priv/templates/simplenode.template
+%
+
+{template, "template/reltool.config", "rel/reltool.config"}.
+
+{file, "rebar/priv/templates/simplenode.erl.script", "rel/files/erl"}.
+{chmod, 8#744, "rel/files/erl"}.
+
+{file, "rebar/priv/templates/simplenode.nodetool", "rel/files/nodetool"}.
+{chmod, 8#744, "rel/files/nodetool"}.
+
+{file, "rebar/priv/templates/simplenode.runner", "rel/files/{{name}}"}.
+{chmod, 8#744, "rel/files/{{name}}"}.
+
+{file, "rebar/priv/templates/simplenode.sys.config", "rel/files/sys.config"}.
+{template, "rebar/priv/templates/simplenode.vm.args", "rel/files/vm.args"}.
+{template, "rebar/priv/templates/simplenode.windows.runner.cmd", "rel/files/{{name}}.cmd"}.
+{file, "rebar/priv/templates/simplenode.windows.start_erl.cmd", "rel/files/start_erl.cmd"}.
+{file, "rebar/priv/templates/simplenode.install_upgrade.escript", "rel/files/install_upgrade.escript"}.
