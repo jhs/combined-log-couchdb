@@ -1,0 +1,16 @@
+{variables,
+  [ {name, "my_plugin"}
+  , {year, "2013"}
+  , {author_name, "My Name"}
+  , {author_email, "me@example.com"}
+  ]}.
+
+{template, "template/couch_plugin.app.src", "src/{{name}}.app.src"}.
+{template, "template/couch_plugin.erl", "src/{{name}}_app.erl"}.
+{template, "template/couch_plugin.erl", "src/{{name}}_sup.erl"}.
+
+{template, "template/couch_plugin.erl", "src/{{name}}_srv.erl"}.
+
+{template, "template/couch_plugin.gitignore", "priv/.gitignore"}.
+{template, "template/couch_plugin.gitignore", "include/.gitignore"}.
+{template, "template/couch_plugin.README.md", "README.md"}.
