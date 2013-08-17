@@ -28,6 +28,7 @@
 %
 
 {template, "template/reltool.config", "rel/reltool.config"}.
+{template, "template/vm.args", "rel/files/vm.args"}.
 
 {file, "rebar/priv/templates/simplenode.erl.script", "rel/files/erl"}.
 {chmod, 8#744, "rel/files/erl"}.
@@ -39,7 +40,6 @@
 {chmod, 8#744, "rel/files/{{name}}"}.
 
 {file, "rebar/priv/templates/simplenode.sys.config", "rel/files/sys.config"}.
-{template, "rebar/priv/templates/simplenode.vm.args", "rel/files/vm.args"}.
 {template, "rebar/priv/templates/simplenode.windows.runner.cmd", "rel/files/{{name}}.cmd"}.
 {file, "rebar/priv/templates/simplenode.windows.start_erl.cmd", "rel/files/start_erl.cmd"}.
 {file, "rebar/priv/templates/simplenode.install_upgrade.escript", "rel/files/install_upgrade.escript"}.
