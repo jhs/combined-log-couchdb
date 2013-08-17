@@ -12,11 +12,13 @@
 
 %% CouchDB Plugin authors:
 %%
-%% You do not need to edit this file. Your code is in combined_log.erl.
+%% Do not to edit this file. Your code is in combined_log.erl.
 
 -module('combined_log_srv').
 -behaviour(gen_server).
 -define(SERVER, ?MODULE).
+
+-import('combined_log', [on/1]).
 
 %% ------------------------------------------------------------------
 %% API Function Exports
@@ -43,6 +45,7 @@ start_link() ->
 %% ------------------------------------------------------------------
 
 init(Args) ->
+    on(init),
     {ok, Args}.
 
 handle_call(_Request, _From, State) ->
