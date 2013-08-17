@@ -15,6 +15,7 @@
 
 {template, "template/gitignore/ebin", "ebin/.gitignore"}.
 {template, "template/gitignore/empty", "doc/.gitignore"}.
+{template, "template/gitignore/empty", "rel/.gitignore"}.
 {template, "template/gitignore/empty", "priv/.gitignore"}.
 {template, "template/gitignore/empty", "include/.gitignore"}.
 
