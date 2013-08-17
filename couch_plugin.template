@@ -13,11 +13,12 @@
 
 {template, "template/couch_plugin.erl", "src/{{name}}.erl"}.
 
-{template, "template/gitignore/ebin", "ebin/.gitignore"}.
 {template, "template/gitignore/empty", "doc/.gitignore"}.
-{template, "template/gitignore/empty", "rel/.gitignore"}.
 {template, "template/gitignore/empty", "priv/.gitignore"}.
 {template, "template/gitignore/empty", "include/.gitignore"}.
+
+{template, "template/gitignore/ebin", "ebin/.gitignore"}.
+{template, "template/gitignore/rel", "rel/.gitignore"}.
 
 {template, "template/README.md", "README.md"}.
 {template, "template/rebar.config", "rebar.config"}.
