@@ -7,6 +7,7 @@
                   kernel,
                   stdlib
                  ]},
+  {modules, [{{name}}_app, {{name}}_sup, {{name}}_srv, {{name}}]},
   {mod, { {{name}}_app, []}},
   {env, []}
  ]}.

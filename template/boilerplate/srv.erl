@@ -43,6 +43,7 @@ start_link() ->
 %% ------------------------------------------------------------------
 
 init(Args) ->
+    io:format("Server started: ~p\n", [?MODULE]),
     {ok, Args}.
 
 handle_call(_Request, _From, State) ->
