@@ -1,4 +1,6 @@
 #!/bin/sh
+#
+# This whole script should be a rebar plugin, or at least an escript.
 
 [ -z "$plugin_name" ] && read -p "plugin_name: " plugin_name
 
@@ -10,11 +12,24 @@ else
 fi
 
 set -e
-set -x
 
 ./rebar/rebar clean
 ./rebar/rebar get-deps
 ./rebar/rebar update-deps
 ./rebar/rebar compile
 
-zip -r "$plugin_name.zip" ebin priv
+vsn=`cat "ebin/$plugin_name.app" | perl -ne 'print "$1\n" if(m|vsn,"(.*)"|)'`
+
+dist="$plugin_name-$vsn"
+rm -rf "./$dist" "$dist.zip"
+
+mkdir -p "$dist"
+
+cp -r ebin "$dist"
+cp -r priv "$dist"
+
+zip -r "$dist.zip" "$dist"
+rm -rf "./$dist"
+
+echo ""
+echo "Done: $dist.zip"
