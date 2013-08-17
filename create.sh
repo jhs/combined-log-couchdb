@@ -27,7 +27,6 @@ set -e
 echo ""
 echo "## Success"
 echo ""
-echo "To compile your plugin: ./rebar/rebar compile"
-echo "To package your plugin: ./rebar/rebar generate"
+echo "To build your plugin: ./rebar/rebar compile generate"
 echo ""
 echo "Your plugin release will be in rel/$plugin_name"
