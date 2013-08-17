@@ -10,6 +10,10 @@
 %%%    See the License for the specific language governing permissions and
 %%%    limitations under the License.
 
+%% CouchDB Plugin authors:
+%%
+%% You do not need to edit this file. Your code is in {{name}}.erl.
+
 -module('{{name}}_sup').
 
 -behaviour(supervisor).
