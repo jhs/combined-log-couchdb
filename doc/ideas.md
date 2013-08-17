@@ -28,3 +28,16 @@ Send an email
 Authentication
  * No more org.couchdb.user:*
  * Just general other authentication, LDAP, PAM, whatever
+
+## couch_plugin branch
+
+Why is the plugin_dir user-serviceable? Why not somewhere in priv/ and the admin interface
+adds and removes files to that location?
+
+Also let's talk about the minimum viable product. I think the Futon interface is not minimum. To merge this to master, an HTTP interface should be sufficient.
+
+What is this idea of requiring plugins to come from apache.org? It seems restrictive and out of scope for an MVP. Was it removed from the roadmap?
+
+I am not convinced about the installation process. Why can't I simply upload an Erlang release into CouchDB?
+
+I want to convert all of the Iris changes to plugins. That is a plausible test of the minimum viable product. For my workflow (typical of sysadmins) I want to build plugins when I build CouchDB, and install plugins when I install CouchDB. If I do change plugins, which is rare, I am willing to restart CouchDB. Sure, there is Erlang code updating and maybe it is easy; but for the MVP can restart.
