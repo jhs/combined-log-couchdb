@@ -46,6 +46,8 @@ start_link() ->
 %% ------------------------------------------------------------------
 
 init(Args) ->
+    PluginBase = ?PRIV_DIR ++ "/..",
+    activate_dep(PluginBase),
     State = case on(init) of
         ok ->
             couch_log:info("CouchDB plugin loaded: ~w", [?SERVER]),
@@ -75,3 +77,25 @@ code_change(_OldVsn, State, _Extra) ->
 %% Internal Function Definitions
 %% ------------------------------------------------------------------
 
+activate_dep(Dir) ->
+    Deps = Dir ++ "/deps",
+    case file:list_dir(Deps) of
+        {error, enoent} ->
+            ok;
+        {ok, Files} ->
+            CheckDep = fun(File) -> check_dep(Deps, File) end,
+            lists:foreach(CheckDep, Files)
+    end,
+    ok.
+
+check_dep(Deps, File) ->
+    Package = Deps ++ "/" ++ File,
+    Ebin = Package ++ "/ebin",
+    SubDeps = Package ++ "/deps",
+    case filelib:is_dir(Ebin) of
+        false -> ok;
+        true ->
+            % Add this dependency and possible sub-dependencies.
+            code:add_pathz(Ebin),
+            activate_dep(SubDeps)
+    end.
