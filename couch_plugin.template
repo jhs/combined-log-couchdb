@@ -7,9 +7,9 @@
 
 {template, "template/app.src", "src/{{name}}.app.src"}.
 
-{template, "template/boilerplate/app.erl", "src/{{name}}_app.erl"}.
-{template, "template/boilerplate/sup.erl", "src/{{name}}_sup.erl"}.
-{template, "template/boilerplate/srv.erl", "src/{{name}}_srv.erl"}.
+{template, "template/couch_plugin_app.erl", "src/{{name}}_app.erl"}.
+{template, "template/couch_plugin_sup.erl", "src/{{name}}_sup.erl"}.
+{template, "template/couch_plugin_srv.erl", "src/{{name}}_srv.erl"}.
 
 {template, "template/couch_plugin.erl", "src/{{name}}.erl"}.
 
