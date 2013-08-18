@@ -24,6 +24,8 @@
 % Time to start this plugin. Return 'ok' to indicate success. Any other return
 % value or thrown error will deactivate this plugin.
 on(init) ->
+  lager:start(),
+  lager:info("Lager is running"),
   ok;
 
 
