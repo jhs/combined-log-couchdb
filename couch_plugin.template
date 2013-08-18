@@ -16,6 +16,7 @@
 {template, "template/gitignore/empty", "doc/.gitignore"}.
 {template, "template/include/couch_plugin.hrl", "include/couch_plugin.hrl"}.
 
+{template, "template/priv/couch_plugin.config", "priv/couch_plugin.config"}.
 {template, "template/default.d/plugin.ini", "priv/default.d/plugin.ini"}.
 {template, "template/default.d/plugin_local.ini", "priv/default.d/{{name}}.ini"}.
 
