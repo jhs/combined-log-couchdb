@@ -16,7 +16,7 @@
 
 -module('{{name}}_srv').
 -behaviour(gen_server).
--define(SERVER, ?MODULE).
+-define(SERVER, '{{name}}').
 
 -include("couch_plugin.hrl").
 -import('{{name}}', [on/1]).
@@ -46,8 +46,15 @@ start_link() ->
 %% ------------------------------------------------------------------
 
 init(Args) ->
-    on(init),
-    {ok, Args}.
+    State = case on(init) of
+        ok ->
+            couch_log:info("CouchDB plugin loaded: ~w", [?SERVER]),
+            Args;
+        _  ->
+            % Maybe some disabled state
+            Args
+    end,
+    {ok, State}.
 
 handle_call(_Request, _From, State) ->
     {reply, ok, State}.
