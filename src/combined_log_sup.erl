@@ -16,6 +16,7 @@
 
 -module('combined_log_sup').
 
+-include("couch_plugin.hrl").
 -behaviour(supervisor).
 
 %% API

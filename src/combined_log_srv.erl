@@ -16,7 +16,7 @@
 
 -module('combined_log_srv').
 -behaviour(gen_server).
--define(SERVER, ?MODULE).
+-define(SERVER, 'combined_log').
 
 -include("couch_plugin.hrl").
 -import('combined_log', [on/1]).
@@ -46,10 +46,15 @@ start_link() ->
 %% ------------------------------------------------------------------
 
 init(Args) ->
-    PluginBase = ?PRIV_DIR ++ "/..",
-    activate_dep(PluginBase),
-    on(init),
-    {ok, Args}.
+    State = case on(init) of
+        ok ->
+            couch_log:info("CouchDB plugin loaded: ~w", [?SERVER]),
+            Args;
+        _  ->
+            % Maybe some disabled state
+            Args
+    end,
+    {ok, State}.
 
 handle_call(_Request, _From, State) ->
     {reply, ok, State}.
@@ -70,25 +75,3 @@ code_change(_OldVsn, State, _Extra) ->
 %% Internal Function Definitions
 %% ------------------------------------------------------------------
 
-activate_dep(Dir) ->
-    Deps = Dir ++ "/deps",
-    case file:list_dir(Deps) of
-        {error, enoent} ->
-            ok;
-        {ok, Files} ->
-            CheckDep = fun(File) -> check_dep(Deps, File) end,
-            lists:foreach(CheckDep, Files)
-    end,
-    ok.
-
-check_dep(Deps, File) ->
-    Package = Deps ++ "/" ++ File,
-    Ebin = Package ++ "/ebin",
-    SubDeps = Package ++ "/deps",
-    case filelib:is_dir(Ebin) of
-        false -> ok;
-        true ->
-            % Add this dependency and possible sub-dependencies.
-            code:add_pathz(Ebin),
-            activate_dep(SubDeps)
-    end.

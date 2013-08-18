@@ -21,6 +21,11 @@
 -export([on/1]).
 
 
+% Time to start this plugin. Return 'ok' to indicate success. Any other return
+% value or thrown error will deactivate this plugin.
 on(init) ->
-  couch_log:info("CouchDB plugin loaded: ~p", [?MODULE]),
-  lager:info("Lager is running").
+  ok;
+
+
+% This catch-all handler ignores all other events.
+on(_) -> ok.
