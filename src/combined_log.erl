@@ -23,11 +23,36 @@
 
 % Time to start this plugin. Return 'ok' to indicate success. Any other return
 % value or thrown error will deactivate this plugin.
-on(init) ->
-  lager:start(),
-  lager:info("Lager is running"),
+on(init) -> ok
+    , lager:start()
+    , case couch_config:get("log", "file")
+        of undefined -> ok
+            , {error, no_couch_log}
+        ; Couch_log -> ok
+            , Log_dir = filename:dirname(Couch_log)
+            , Access_path = Log_dir ++ "/access.log"
+            , Error_path  = Log_dir ++ "/error.log"
+            , 
+        end
+
+    % XXX The idea is to start lager, but somehow link with it. I am not sure if that is the
+    % best idea, but maybe look for gen_event handlers and link to all those PIDs. So if this
+    % crashes, lager restarts, and if lager crashes, this restarts. The goal is that anything
+    % can crash and all the logging is restarted correctly.
+    %
+    % Also there is the question of keeping state in this module. How to balance simplicity
+    % with the fact that there is no way to keep state at all? I am thinking use the process
+    % dictionary.
+%  case couch_config:get("log", "file")
+%
+%  couch_config:get("log", "file")
+%  lager:info("Lager is running"),
+%  supervisor:start_child(lager_handler_watcher_sup, [lager_event, Module, Config]) ||
+%        {Module, Config} <- expand_handlers(Handlers)],
   ok;
 
 
 % This catch-all handler ignores all other events.
 on(_) -> ok.
+
+% vim: sts=4 sw=4 et
