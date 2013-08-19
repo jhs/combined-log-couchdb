@@ -40,6 +40,10 @@ on(init) -> ok
         end
     ;
 
+on({log_request, #httpd{}=R}) -> ok
+    'TODO'
+    ;
+
 % This catch-all handler ignores all other events.
 on(_) -> ok.
 
