@@ -17,6 +17,8 @@
 -include("couch_db.hrl").
 
 -define(PRIV_DIR, code:priv_dir('{{name}}')).
+-define(SERVER, '{{name}}').
+-define(HANDLER, '{{name}}_evt').
 
 
 %% -*- erlang-indent-level: 4;indent-tabs-mode: nil -*-
