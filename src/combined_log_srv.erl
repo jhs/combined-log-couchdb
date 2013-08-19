@@ -16,7 +16,6 @@
 
 -module('combined_log_srv').
 -behaviour(gen_server).
--define(SERVER, 'combined_log').
 
 -include("couch_plugin.hrl").
 -import('combined_log', [on/1]).

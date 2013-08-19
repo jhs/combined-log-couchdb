@@ -15,3 +15,5 @@
 %% You do not need to edit this file. Your code is in combined_log.erl.
 
 -define(PRIV_DIR, code:priv_dir('combined_log')).
+-define(SERVER, 'combined_log').
+-define(HANDLER, 'combined_log_evt').
