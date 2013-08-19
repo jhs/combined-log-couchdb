@@ -8,7 +8,6 @@ I have done some experiments on this. Random thoughts:
 
 * Put a .beam file somewhere
 * Put a .erl file somewhere and Couch compiles it
-* A bridge to Node.js so you can write plugins in Node/JavaScript
 
 ## Minimal Ceremony
 
@@ -40,13 +39,15 @@ What is this idea of requiring plugins to come from apache.org? It seems restric
 
 I am not convinced about the installation process. Why can't I simply upload an Erlang release into CouchDB?
 
+## Current idea
+
 How to completely streamline the CouchDB plugin story? How to bring in developers as easily as possible? My idea:
 
 1. We bundle the Rebar source in the CouchDB source
 2. We build rebar with couch_plugin extensions
 3. You fetch rebar over http
 4. You run `./rebar create couchdb_plugin` and you get a working, no-op plugin.
-6. It is a standard Erlang project. `rebar clean`, `rebar get-deps`, `rebar compile`, etc.
+6. It is a standard Erlang project. `rebar clean`, `rebar get-deps`, `rebar compile`, etc. CouchDB source *not* needed.
 7. There is a `rebar publish` where you can send it back to CouchDB.
 
 To an Erlang or CouchDB developer, the plugin looks like this:
@@ -60,7 +61,7 @@ To an Erlang or CouchDB developer, the plugin looks like this:
 
 To a novice Erlang developer, the plugin looks like this:
 
-* Basically every file you open says "Plugin authors NEED NOT edit this file"
+* Basically every file you open says *Plugin authors NEED NOT edit this file*
 * There is one plain Erlang module, (no behaviours, just a standard module) called `your_plugin_name.erl` it has a very JavaScript-friendly style, `on(Event) -> do_stuff().`
 
 With the "easy" style, you say what event to handle, and write the code to do that. It is suitable for typical plugin tasks: logging, send an email when somebody signs up, stuff like that.
