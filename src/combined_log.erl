@@ -63,8 +63,6 @@ on({log_request, #httpd{mochi_req=MochiReq, peer=Peer, user_ctx=UserCtx}, Code})
 
     , Format = "~s - ~s [~sT~sZ] \"~s ~s HTTP/~B.~B\" ~B ~s ~s ~s"
     , Args = [Peer, User, Date, Time, Method, Path, Ver_maj, Ver_min, Code, Size, Referer, Agent]
-
-    %, io:format("~p\n~p\n", [Format, Args])
     , lager:warning([{type,access}], Format, Args)
     ;
 
