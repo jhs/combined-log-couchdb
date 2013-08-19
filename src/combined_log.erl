@@ -21,6 +21,10 @@
 -export([on/1]).
 
 -define(WATCHER, lager_handler_watcher_sup).
+-define(BLANK, <<"-">>).
+
+-define(LOG(Level, Msg), lager:Level([{type,error}], Msg)).
+-define(LOG(Level, Msg, Args), lager:Level([{type,error}], Msg, Args)).
 
 % Time to start this plugin. Return 'ok' to indicate success. Any other return
 % value or thrown error will deactivate this plugin.
@@ -32,7 +36,7 @@ on(init) -> ok
     % the watchers).
     , case start_log_file()
         of ok -> ok
-            , lager:info("~s is running", [?MODULE])
+            , ?LOG(info, "~s is running", [?MODULE])
             , ok
         ; Failed -> ok
             , couch_log:error("Failed to find Lager handler watcher")
@@ -74,9 +78,30 @@ start_log_file(Watcher, Log_dir) -> ok
 start_log_file(_Watcher_pid, Log_dir, Type, Filename) -> ok
     , Path = Log_dir ++ "/" ++ Filename
     , Module = {lager_file_backend, Path}
-    , Config = {Path, none} % No log level. Tracing will be used to send data.
+    , Config = case Type
+        of access -> ok
+            , [ {file, Path}
+              , {level, none}
+              , {formatter, lager_default_formatter}
+              , {formatter_config, [message, "\n"]}
+              ]
+        ; error -> ok
+            , [ {file, Path}
+              , {level, none}
+              , {formatter, lager_default_formatter}
+              , {formatter_config
+                , [ date, " ", time," [",severity,"] ", pid, " ", module, ":", line, "/", function, " ", message, "\n"]}
+              ]
+        end
+
     , {ok, Child_pid} = supervisor:start_child(?WATCHER, [lager_event, Module, Config])
     , link(Child_pid)
+
+    , case Type
+        of error -> lager:trace_file(Path, [{type,error}], debug)
+        ; access -> lager:trace_file(Path, [{type,access}], info)
+        end
+
     , couch_log:info("Log (~w): ~s", [Type, Filename])
     .
 
