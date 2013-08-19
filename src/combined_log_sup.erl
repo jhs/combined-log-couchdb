@@ -43,3 +43,7 @@ init([]) ->
     Plugin = ?CHILD('combined_log_srv', worker),
     {ok, { {one_for_one, 5, 10}, [Plugin]} }.
 
+
+
+%% -*- erlang-indent-level: 4;indent-tabs-mode: nil -*-
+%% ex: ts=4 sw=4 et

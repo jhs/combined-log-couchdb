@@ -80,4 +80,6 @@ start_log_file(_Watcher_pid, Log_dir, Type, Filename) -> ok
     , couch_log:info("Log (~w): ~s", [Type, Filename])
     .
 
-% vim: sts=4 sw=4 et
+
+%% -*- erlang-indent-level: 4;indent-tabs-mode: nil -*-
+%% ex: ts=4 sw=4 et

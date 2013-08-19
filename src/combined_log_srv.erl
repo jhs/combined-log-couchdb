@@ -104,3 +104,7 @@ check_dep(Deps, File) ->
             code:add_pathz(Ebin),
             activate_dep(SubDeps)
     end.
+
+
+%% -*- erlang-indent-level: 4;indent-tabs-mode: nil -*-
+%% ex: ts=4 sw=4 et
