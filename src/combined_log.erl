@@ -30,10 +30,6 @@
 % value or thrown error will deactivate this plugin.
 on(init) -> ok
     , lager:start()
-
-    % Find the lager handler supervisor, lager_handler_watcher_sup. Link to it, so if this plugin crashes,
-    % it will reinstall the watchers; or if the supervisor crashes, this plugin will crash (thus reinstalling
-    % the watchers).
     , case start_log_file()
         of ok -> ok
             , ?LOG(info, "~s is running", [?MODULE])
@@ -118,6 +114,7 @@ start_log_file(_Watcher_pid, Log_dir, Type, Filename) -> ok
               ]
         end
 
+    % Link to the file backend, so if either this plugin or Lager crashes, both will restart.
     , {ok, Child_pid} = supervisor:start_child(?WATCHER, [lager_event, Module, Config])
     , link(Child_pid)
 
