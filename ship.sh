@@ -13,9 +13,8 @@ fi
 
 set -e
 
-[ -z "$skip_clean" ] && ./rebar/rebar clean
-./rebar/rebar get-deps
-[ -z "$skip_update" ] && ./rebar/rebar update-deps
+[ -d "deps" ] || ./rebar/rebar get-deps
+# [ -z "$skip_update" ] && ./rebar/rebar update-deps
 ./rebar/rebar compile
 
 vsn=`cat "ebin/$plugin_name.app" | perl -ne 'print "$1\n" if(m|vsn,"(.*)"|)'`
