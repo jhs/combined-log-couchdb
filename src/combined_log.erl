@@ -35,7 +35,7 @@ on(init) -> ok
             , ?LOG(info, "~s is running", [?MODULE])
             , ok
         ; Failed -> ok
-            , couch_log:error("Failed to find Lager handler watcher")
+            , couch_log:error("Failed to set up log files: ~p", [Failed])
             , Failed
         end
     ;
