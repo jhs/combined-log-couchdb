@@ -49,6 +49,7 @@ init(Args) ->
     activate_dep(PluginBase),
     State = case on(init) of
         ok ->
+            gen_event:add_handler(couch_plugin, ?HANDLER, [?SERVER]),
             couch_log:info("CouchDB plugin loaded: ~w", [?SERVER]),
             Args;
         _  ->
@@ -60,7 +61,11 @@ init(Args) ->
 handle_call(_Request, _From, State) ->
     {reply, ok, State}.
 
-handle_cast(_Msg, State) ->
+handle_cast({event, Event}, State) ->
+    couch_log:debug("Plugin ~w got message: ~p", [?SERVER, Event]),
+    {noreply, State};
+
+handle_cast(Msg, State) ->
     {noreply, State}.
 
 handle_info(_Info, State) ->
