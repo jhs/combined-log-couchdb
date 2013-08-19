@@ -61,7 +61,7 @@ init(Args) ->
 handle_call(_Request, _From, State) ->
     {reply, ok, State}.
 
-handle_cast({event, Event}, State) ->
+handle_cast(Event, State) ->
     couch_log:debug("Plugin ~w got message: ~p", [?SERVER, Event]),
     {noreply, State};
 

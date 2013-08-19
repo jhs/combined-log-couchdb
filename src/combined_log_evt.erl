@@ -34,7 +34,7 @@ init([Server]) ->
     {ok, Server}.
 
 handle_event(Event, Server) ->
-    gen_server:cast(Server, {event, Event}),
+    gen_server:cast(Server, Event),
     {ok, Server}.
 
 handle_call(_, State) ->
