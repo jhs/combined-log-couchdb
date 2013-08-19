@@ -14,6 +14,8 @@
 %%
 %% You do not need to edit this file. Your code is in {{name}}.erl.
 
+-include("couch_db.hrl").
+
 -define(PRIV_DIR, code:priv_dir('{{name}}')).
 
 
