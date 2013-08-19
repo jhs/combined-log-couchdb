@@ -66,3 +66,11 @@ To a novice Erlang developer, the plugin looks like this:
 With the "easy" style, you say what event to handle, and write the code to do that. It is suitable for typical plugin tasks: logging, send an email when somebody signs up, stuff like that.
 
 I want to convert all of the Iris changes to plugins. That is a plausible test of the minimum viable product. For my workflow (typical of sysadmins) I want to build plugins when I build CouchDB, and install plugins when I install CouchDB. If I do change plugins, which is rare, I am willing to restart CouchDB. Sure, there is Erlang code updating and maybe it is easy; but for the MVP can restart.
+
+## This plugin itself
+
+There is the question of keeping state in this module. How to balance simplicity
+with the fact that there is no way to keep state at all? I am thinking use the process
+dictionary.
+
+Maybe have all plugins register an HTTP handler by default, /_plugins/$name/_debug and the on-rails code lets you define `on(debug) -> {any, term};` And that will be sent to the client as text/plain.
