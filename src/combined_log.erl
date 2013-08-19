@@ -20,14 +20,60 @@
 -include("couch_plugin.hrl").
 -export([on/1]).
 
+-define(WATCHER, lager_handler_watcher_sup).
 
 % Time to start this plugin. Return 'ok' to indicate success. Any other return
 % value or thrown error will deactivate this plugin.
-on(init) ->
-  lager:start(),
-  lager:info("Lager is running"),
-  ok;
+on(init) -> ok
+    , lager:start()
 
+    % Find the lager handler supervisor, lager_handler_watcher_sup. Link to it, so if this plugin crashes,
+    % it will reinstall the watchers; or if the supervisor crashes, this plugin will crash (thus reinstalling
+    % the watchers).
+    , case start_log_file()
+        of ok -> ok
+            , lager:info("~s is running", [?MODULE])
+            , ok
+        ; Failed -> ok
+            , couch_log:error("Failed to find Lager handler watcher")
+            , Failed
+        end
+    ;
 
 % This catch-all handler ignores all other events.
 on(_) -> ok.
+
+
+start_log_file() -> ok
+    , start_log_file(whereis(?WATCHER))
+    .
+
+start_log_file(undefined) -> ok
+    , {error, not_registered, ?WATCHER}
+    ;
+
+start_log_file(Watcher_pid) when is_pid(Watcher_pid) -> ok
+    , case couch_config:get("log", "file")
+        of undefined -> ok
+            , {error, no_couch_log}
+        ; Couch_log -> ok
+            , Log_dir = filename:dirname(Couch_log)
+            , start_log_file(Watcher_pid, Log_dir)
+        end
+    .
+
+start_log_file(Watcher, Log_dir) -> ok
+    , start_log_file(Watcher, Log_dir, access, "access.log")
+    , start_log_file(Watcher, Log_dir, error, "error.log")
+    .
+
+start_log_file(_Watcher_pid, Log_dir, Type, Filename) -> ok
+    , Path = Log_dir ++ "/" ++ Filename
+    , Module = {lager_file_backend, Path}
+    , Config = {Path, none} % No log level. Tracing will be used to send data.
+    , {ok, Child_pid} = supervisor:start_child(?WATCHER, [lager_event, Module, Config])
+    , link(Child_pid)
+    , couch_log:info("Log (~w): ~s", [Type, Filename])
+    .
+
+% vim: sts=4 sw=4 et
