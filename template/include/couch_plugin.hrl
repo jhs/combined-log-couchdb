@@ -15,3 +15,7 @@
 %% You do not need to edit this file. Your code is in {{name}}.erl.
 
 -define(PRIV_DIR, code:priv_dir('{{name}}')).
+
+
+%% -*- erlang-indent-level: 4;indent-tabs-mode: nil -*-
+%% ex: ts=4 sw=4 et
