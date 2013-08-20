@@ -1,3 +1,0 @@
-[submodule "rebar"]
-	path = rebar
-	url = git://github.com/rebar/rebar.git
