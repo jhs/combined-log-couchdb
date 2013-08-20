@@ -53,15 +53,15 @@ on({log_request, #httpd{mochi_req=MochiReq, peer=Peer, user_ctx=UserCtx}, Code})
     , {Date, Time} = lager_util:format_time()
     , Size = ?BLANK % This will require CouchDB changes to get.
     , Referer = case MochiReq:get_header_value(referer)
-        of undefined -> ?BLANK
-        ;  Referer0 -> [$", Referer0, $"]
+        of undefined -> ""
+        ;  Referer0 -> Referer0
         end
     , Agent = case MochiReq:get_header_value('user-agent')
-        of undefined -> ?BLANK
-        ; Agent0 -> [$", Agent0, $"]
+        of undefined -> ""
+        ; Agent0 -> Agent0
         end
 
-    , Format = "~s - ~s [~s ~s] \"~s ~s HTTP/~B.~B\" ~B ~s ~s ~s"
+    , Format = "~s - ~s [~s ~s] \"~s ~s HTTP/~B.~B\" ~B ~s \"~s\" \"~s\""
     , Args = [Peer, User, Date, Time, Method, Path, Ver_maj, Ver_min, Code, Size, Referer, Agent]
     , lager:warning([{type,access}], Format, Args)
     ;
