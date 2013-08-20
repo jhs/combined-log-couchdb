@@ -68,6 +68,8 @@ With the "easy" style, you say what event to handle, and write the code to do th
 
 I want to convert all of the Iris changes to plugins. That is a plausible test of the minimum viable product. For my workflow (typical of sysadmins) I want to build plugins when I build CouchDB, and install plugins when I install CouchDB. If I do change plugins, which is rare, I am willing to restart CouchDB. Sure, there is Erlang code updating and maybe it is easy; but for the MVP can restart.
 
+Question about architecture. My idea, at least for "asynchronous" plugins is event notifications. But every plugin does the same thing: forward all events to the plugin gen_server. So every event goes through fan-out, defeating some benefits of Erlang events. On the other hand, (1) event handlers forwarding to their gen_server is a decently correct fan-out implementation; and (2) How many plugins could CouchDB possibly have? A couple? A dozen? It's probably moot.
+
 ## This plugin itself
 
 There is the question of keeping state in this module. How to balance simplicity
