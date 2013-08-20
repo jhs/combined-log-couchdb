@@ -39,6 +39,8 @@ What is this idea of requiring plugins to come from apache.org? It seems restric
 
 I am not convinced about the installation process. Why can't I simply upload an Erlang release into CouchDB?
 
+Why do the .ini files have to be in `default.d`? That is not a meaningful name to plugin providers. That directory will not go in /etc or anything. Why not config/ or something intuitive?
+
 ## Current idea
 
 How to completely streamline the CouchDB plugin story? How to bring in developers as easily as possible? My idea:
