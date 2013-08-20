@@ -42,6 +42,9 @@ on(init) -> ok
 
 on({log_request, #httpd{mochi_req=MochiReq, peer=Peer, user_ctx=UserCtx}, Code}) -> ok
     % "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\""
+    , {[Year,_,Month,_,Day], [Hour,_,Minute,_,Second,_,_Millis]} = lager_util:format_time()
+    , Timestamp = [Day, $/, month(Month), $/, Year, $:, Hour, $:, Minute, $:, Second]
+
     , User = case UserCtx
         of #user_ctx{name=null}      -> ?BLANK
         ;  #user_ctx{name=User_name} -> User_name
@@ -50,7 +53,6 @@ on({log_request, #httpd{mochi_req=MochiReq, peer=Peer, user_ctx=UserCtx}, Code})
     , Method = MochiReq:get(method)
     , Path = MochiReq:get(raw_path)
     , {Ver_maj, Ver_min} = MochiReq:get(version)
-    , {Date, Time} = lager_util:format_time()
     , Size = ?BLANK % This will require CouchDB changes to get.
     , Referer = case MochiReq:get_header_value(referer)
         of undefined -> ""
@@ -61,9 +63,9 @@ on({log_request, #httpd{mochi_req=MochiReq, peer=Peer, user_ctx=UserCtx}, Code})
         ; Agent0 -> Agent0
         end
 
-    , Format = "~s - ~s [~s ~s] \"~s ~s HTTP/~B.~B\" ~B ~s \"~s\" \"~s\""
-    , Args = [Peer, User, Date, Time, Method, Path, Ver_maj, Ver_min, Code, Size, Referer, Agent]
-    , lager:warning([{type,access}], Format, Args)
+    , Format = "~s - ~s [~s +0000] \"~s ~s HTTP/~B.~B\" ~B ~s \"~s\" \"~s\""
+    , Args = [Peer, User, Timestamp, Method, Path, Ver_maj, Ver_min, Code, Size, Referer, Agent]
+    , lager:info([{type,access}], Format, Args)
     ;
 
 % This catch-all handler ignores all other events.
@@ -116,6 +118,18 @@ start_log_file(_Watcher_pid, Log_dir, Type, Filename) -> ok
     , couch_log:info("Log (~w): ~s", [Type, Filename])
     .
 
+month("01") -> <<"Jan">>;
+month("02") -> <<"Feb">>;
+month("03") -> <<"Mar">>;
+month("04") -> <<"Apr">>;
+month("05") -> <<"May">>;
+month("06") -> <<"Jun">>;
+month("07") -> <<"Jul">>;
+month("08") -> <<"Aug">>;
+month("09") -> <<"Sep">>;
+month("10") -> <<"Oct">>;
+month("11") -> <<"Nov">>;
+month("12") -> <<"Dec">>.
 
 %% -*- erlang-indent-level: 4;indent-tabs-mode: nil -*-
 %% ex: ts=4 sw=4 et
