@@ -1,12 +1,5 @@
 #!/bin/sh
 
-if [ -d "./rebar" ]; then
-  make -C rebar
-else
-  echo "Missing rebar. Try git submodule update --init"
-  exit 1
-fi
-
 year=`date +%Y`
 
 [ -z "$plugin_name" ] && read -p "plugin_name: " plugin_name
@@ -21,12 +14,12 @@ fi
 
 set -e
 
-./rebar/rebar create -C template/rebar/null \
+./rebar create -C template/rebar/null \
   template="couch_plugin" name="$plugin_name" year="$year" author_name="$author_name" author_email="$author_email" $force
 
 echo ""
 echo "## Success"
 echo ""
-echo "To build your plugin: ./rebar/rebar compile generate"
+echo "To build your plugin: ./rebar compile generate"
 echo ""
 echo "Your plugin release will be in rel/$plugin_name"

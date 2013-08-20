@@ -4,18 +4,11 @@
 
 [ -z "$plugin_name" ] && read -p "plugin_name: " plugin_name
 
-if [ -d "./rebar" ]; then
-  make -C rebar
-else
-  echo "Missing rebar. Try git submodule update --init"
-  exit 1
-fi
-
 set -e
 
-[ -d "deps" ] || ./rebar/rebar get-deps
-# [ -z "$skip_update" ] && ./rebar/rebar update-deps
-./rebar/rebar compile
+[ -d "deps" ] || ./rebar get-deps
+# [ -z "$skip_update" ] && ./rebar update-deps
+./rebar compile
 
 vsn=`cat "ebin/$plugin_name.app" | perl -ne 'print "$1\n" if(m|vsn,"(.*)"|)'`
 
