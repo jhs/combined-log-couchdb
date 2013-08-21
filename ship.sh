@@ -26,7 +26,7 @@ if [ -d "deps" ]; then
     mkdir -p "$dist/deps/$dep"
 
     cp -r "deps/$dep/ebin" "$dist/deps/$dep/ebin"
-    if [ -d "$deps/$dep/priv" ]; then
+    if [ -d "deps/$dep/priv" ]; then
       cp -r "deps/$dep/priv" "$dist/deps/$dep/priv"
     fi
   done
