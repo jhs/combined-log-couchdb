@@ -91,8 +91,14 @@ start_log_file(Watcher_pid) when is_pid(Watcher_pid) -> ok
     .
 
 start_log_file(Watcher, Log_dir) -> ok
-    , start_log_file(Watcher, Log_dir, access, "access.log")
-    , start_log_file(Watcher, Log_dir, error, "error.log")
+    , Section = atom_to_list(?MODULE)
+    , Prefix = couch_config:get(Section, "prefix", "")
+    , Suffix = couch_config:get(Section, "suffix", ".log")
+    , Access = couch_config:get(Section, "access_name", "access")
+    , Error  = couch_config:get(Section, "error_name", "error")
+
+    , start_log_file(Watcher, Log_dir, access, Prefix++Access++Suffix)
+    , start_log_file(Watcher, Log_dir, error, Prefix++Error++Suffix)
     .
 
 start_log_file(_Watcher_pid, Log_dir, Type, Filename) -> ok
