@@ -110,7 +110,9 @@ start_log_file(_Watcher_pid, Log_dir, Type, Filename) -> ok
         ; error -> ok
             , [ date, " ", time," [",severity,"] ", pid, " ", module, ":", line, "/", function, " ", message, "\n"]
         end
-    , Config = [ {file,Path}, {level,none}, {formatter,lager_default_formatter}, {formatter_config,Format} ]
+    , Config = [ {file,Path}, {level,none}, {size, 0}, {date, ""}
+               , {formatter,lager_default_formatter}, {formatter_config,Format}
+               ]
 
     % Link to the file backend, so if either this plugin or Lager crashes, both will restart.
     , {ok, Child_pid} = supervisor:start_child(?WATCHER, [lager_event, Module, Config])
